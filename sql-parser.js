@@ -1,31 +1,4 @@
-//     "name": "name",--->omit for now
-// let database = {
-//     "Table1":
-//     {
-//         "name": "Table1",
-//         "headers": ["PRIMARY_KEY", "Column 1", "Column 2", "Column 3"],
-//         "data-type": { "PRIMARY_KEY": "NUMBER", "Column 1": "STRING", "Column 2": "NUMBER", "Column 3": "STRING" },
-//         "data": [
-//             { "PRIMARY_KEY": 0, "Column 1": "", "Column 2": "", "Column 3": "" },
-//             { "PRIMARY_KEY": 1, "Column 1": "", "Column 2": "", "Column 3": "" },
-//             { "PRIMARY_KEY": 2, "Column 1": "", "Column 2": "", "Column 3": "" }
-//         ],
-//         "NEXT_PRIMARY_KEY": 3
-//     },
-//     "Table2":
-//     {
-//         "name": "Table2",
-//         "headers": ["PRIMARY_KEY", "Column 1", "Column 2", "Column 3"],
-//         "data-type": { "PRIMARY_KEY": "NUMBER", "Column 1": "STRING", "Column 2": "NUMBER", "Column 3": "STRING" },
-//         "data": [
-//             { "PRIMARY_KEY": 0, "Column 1": "", "Column 2": "", "Column 3": "" },
-//             { "PRIMARY_KEY": 1, "Column 1": "", "Column 2": "", "Column 3": "" },
-//             { "PRIMARY_KEY": 2, "Column 1": "", "Column 2": "", "Column 3": "" }
-//         ],
-//         "NEXT_PRIMARY_KEY": 3
-//     }
-// }
-//let database={};
+
 let database={};
 function sqlQuery(strSQL){
     console.log("processing",strSQL);
@@ -117,63 +90,33 @@ console.log(parseShowTables());
 // WHERE, VALUES, ON, PRIMARY_KEY, NEXT_PRIMARY_KEY, _METADATA, STRING, NUMBER,
 // =, !=, <>, >=, <=, >, <, * `(back ticks), NOLOCIMES, ERROR
 
-
-// headerNames: ["Column 1", "Column 2", "Column 3"],
-// data: [
-//     ["", "", ""],
-//     ["", "", ""],
-//     ["", "", ""]
-// ]
-// }
-
-
-// let headers = ["date", "start", "end", "purpose", "dest"];
-// let inputTypes = {
-//     "date": "date",
-//     "start": "number",
-//     "end": "number",
-//     "purpose": "text",
-//     "dest": "text"
-// };
-
 //  Example Database Structure
-//  
-// {
-//     "table1Name": [{
-//             "field1_name": value1   \ 
-//             "field2_name": value2,   \  //these are rows of data
-//             "field3_name": value3    /
-//         },
-//         {
-//             "field1_name": value1   \ 
-//             "field2_name": value2,   \  //these are rows of data
-//             "field3_name": value3    /
-//         },
-//         {
-//             "field1_name": value1   \ 
-//             "field2_name": value2,   \  //these are rows of data
-//             "field3_name": value3    /
-//         }
-//     ],
-//     "table2Name": [{
-//             "field1_name": value1   \ 
-//             "field2_name": value2,   \  //these are rows of data
-//             "field3_name": value3    /
-//         },
-//         {
-//             "field1_name": value1   \ 
-//             "field2_name": value2,   \  //these are rows of data
-//             "field3_name": value3    /
-//         },
-//         {
-//             "field1_name": value1   \ 
-//             "field2_name": value2,   \  //these are rows of data
-//             "field3_name": value3    /
-//         }
-//     ]
+// let database = {
+//     "Table1":
+//     {
+//         "name": "Table1",
+//         "headers": ["PRIMARY_KEY", "Column 1", "Column 2", "Column 3"],
+//         "data-type": { "PRIMARY_KEY": "NUMBER", "Column 1": "STRING", "Column 2": "NUMBER", "Column 3": "STRING" },
+//         "data": [
+//             { "PRIMARY_KEY": 0, "Column 1": "", "Column 2": "", "Column 3": "" },
+//             { "PRIMARY_KEY": 1, "Column 1": "", "Column 2": "", "Column 3": "" },
+//             { "PRIMARY_KEY": 2, "Column 1": "", "Column 2": "", "Column 3": "" }
+//         ],
+//         "NEXT_PRIMARY_KEY": 3
+//     },
+//     "Table2":
+//     {
+//         "name": "Table2",
+//         "headers": ["PRIMARY_KEY", "Column 1", "Column 2", "Column 3"],
+//         "data-type": { "PRIMARY_KEY": "NUMBER", "Column 1": "STRING", "Column 2": "NUMBER", "Column 3": "STRING" },
+//         "data": [
+//             { "PRIMARY_KEY": 0, "Column 1": "", "Column 2": "", "Column 3": "" },
+//             { "PRIMARY_KEY": 1, "Column 1": "", "Column 2": "", "Column 3": "" },
+//             { "PRIMARY_KEY": 2, "Column 1": "", "Column 2": "", "Column 3": "" }
+//         ],
+//         "NEXT_PRIMARY_KEY": 3
+//     }
 // }
-//
-//
 //
 // Notes:
 // the order is very important
@@ -184,7 +127,6 @@ console.log(parseShowTables());
 // <=
 // <
 // =
-
 
 
 
