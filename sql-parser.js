@@ -56,9 +56,8 @@ function parseCreateTable(strSQL) {
 }
 
 
-function parseInsertInto(strSQL) {
 
-}
+
 
 function parseDescribeTable(strSQL) {
     // DESCRIBE city;
@@ -190,5 +189,19 @@ console.log(database);
 // <
 // =
 
+function parseInsertInto(strSQL) {
+    // INSERT INTO table_name (column1, column2, column3, ...) VALUES (`value1`, `value2`, `value3`, ...);
+    // get table name
+    let name=/(INTO)(.*?)(\()/.exec(strSQL)[2].trim();
+    console.log(name);
+    // get values
+    let valuesString=/(VALUES.*?)(\({1})(.*)(\){1})/.exec(strSQL)[3];
+    console.log(valuesString);
+    // get 
+    `\s*,\s*`
+}
 
+parseInsertInto("INSERT INTO table_name (column1, column2, column3, ...) VALUES (`value1`, `value2`, `value3`, ...);");
 
+let strSQL="INSERT INTO table_name (column1, column2, column3, ...) VALUES (`value1`, `value2`, `value3`, ...);";
+console.log(getMatches(strSQL,/(VALUES.*?)(\({1})(.*)(\){1})/g,3));
