@@ -1,0 +1,87 @@
+Available datatypes are STRING or NUMBER.
+
+Available SQL statements:
+-----------------------------
+NAME DATABASE `myDatabase`;
+CREATE TABLE table_name (column1 datatype, column2 datatype, column3 datatype...);
+SHOW TABLES;
+DESCRIBE table_name;
+DROP TABLE table_name;
+ALTER TABLE table_name ADD column_name datatype;
+ALTER TABLE table_name DROP COLUMN column_name;
+ALTER TABLE table_name CHANGE samename samename newdatatype;
+ALTER TABLE table_name CHANGE oldname newname samedatatype:
+ALTER TABLE table_name CHANGE oldname newname newdatatype;
+INSERT INTO table_name (column1, column2, column3, ...) VALUES (`value1`, `value2`, `value3`, ...);
+UPDATE table_name SET column1 = `value1`, column2 = `value2`, ... WHERE condition;
+DELETE FROM table_name WHERE condition;
+SELECT * FROM table_name;
+SELECT column1, column2, ...FROM table_name;
+SELECT column1, column2, ... FROM table_name WHERE condition;
+SELECT column1, column2, ... FROM table_name ORDER BY column ASC|DESC;
+SELECT column1, column2, ... FROM table1 INNER JOIN table2 ON table1.column_name = table2.column_name;
+INSERT INTO newtable [a SELECT statement];
+HELP
+
+Reserved Keywords:
+-----------------------------
+INNER, JOIN, SELECT, INSERT, INTO, UPDATE, DELETE, CREATE, DROP, TABLE, SHOW, TABLES, DESCRIBE, HELP, SET,
+WHERE, VALUES, ON, PRIMARY_KEY, NEXT_PRIMARY_KEY, _METADATA, STRING, NUMBER, =, 
+!=, <>, >=, <=, >, <, * `(back ticks), NOLOCIMES, ERRORS
+
+Notes:
+-----------------------------
+ Datatypes are STRING and NUMBER.
+ ; not needed.
+ use `backticks` around all values whether STRING OR NUMBER
+ CAPITALIZATION of keywords is required.
+ All tables are autoincremented starting at 1.
+ Column name of primary key is PRIMARY_KEY.
+ INNER JOIN will give back combined column names, but can be renamed
+
+Examples/Tutorial:
+-----------------------------
+NAME DATABASE `myPetInfo`;
+CREATE TABLE owners (firstname STRING, lastname STRING, email STRING, age NUMBER);
+INSERT INTO owners (firstname, lastname, email) VALUES (`John`, `Jones`, `john@gmail.com`);
+INSERT INTO owners (firstname, lastname, email, age) VALUES (`David`, `Davis`, `ddavis@gmail.com`,`73`);
+INSERT INTO owners (firstname, lastname, email) VALUES (`Justin`, `Thyme`, `justint@gmail.com`);
+CREATE TABLE pets (name STRING, sex STRING, pettype STRING, ownerID NUMBER);
+SHOW TABLES;
+SELECT * FROM owners;
+SELECT * FROM pets;
+INSERT INTO pets (name, sex, pettype, ownerID) VALUES (`fido`, `female`, `dog`, `3`);
+INSERT INTO pets (name, sex, pettype, ownerID) VALUES (`cuddles`, `female`, `cat`, `3`);
+INSERT INTO pets (name, pettype, ownerID) VALUES (`gina`, `guinea pig`, `3`);
+INSERT INTO pets (name, pettype, ownerID) VALUES (`jeany`, `guinea pig`, `3`);
+INSERT INTO pets (name, sex, pettype, ownerID) VALUES (`sherman`, `male`, `dog`, `2`);
+INSERT INTO pets (name, sex, pettype, ownerID) VALUES (`freddie`, `male`, `dog`, `1`);
+UPDATE pets SET sex = `male`, name = `gene` WHERE name =`gina`;
+SELECT * FROM pets;
+UPDATE pets SET sex = `male`, ownerID = `5` WHERE pettype = `guinea pig`;
+ALTER TABLE pets ADD weight NUMBER;
+UPDATE pets SET weight = `70` WHERE name = `sherman`;
+DESCRIBE pets;
+SELECT owners.PRIMARY_KEY, pets.ownerID, owners.firstname, pets.name FROM owners INNER JOIN pets ON owners.PRIMARY_KEY = pets.ownerID;
+INSERT INTO petDirectory SELECT pets.ownerID, owners.firstname, pets.name FROM owners INNER JOIN pets ON owners.PRIMARY_KEY = pets.ownerID;
+DESCRIBE petDirectory;
+SELECT * FROM petDirectory;
+ALTER TABLE petDirectory CHANGE pets_ownerID ownerID STRING;
+ALTER TABLE petDirectory CHANGE pets_name name STRING;
+ALTER TABLE petDirectory CHANGE owners_firstname owner STRING;
+SHOW TABLES;
+INSERT INTO directory SELECT * FROM petDirectory;
+SHOW TABLES;
+DROP TABLE petDirectory;
+SHOW TABLES;
+ALTER TABLE owners ADD telephone STRING;
+UPDATE owners SET telephone = `3042321000` WHERE PRIMARY_KEY = `2`;
+DESCRIBE owners;
+ALTER TABLE owners CHANGE telephone telephone NUMBER;
+DESCRIBE owners;
+SELECT * FROM owners;
+INSERT INTO dogsOnly SELECT * FROM pets WHERE pettype = `dog` ORDER BY ownerID DESC;
+SELECT * FROM dogsOnly;
+ALTER TABLE dogsOnly DROP COLUMN pettype;
+INSERT INTO dogNames SELECT name FROM dogsOnly;
+SHOW TABLES;

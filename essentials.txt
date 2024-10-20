@@ -1,0 +1,5 @@
+table contains
+    table name
+    column names
+    header datatypes
+    next primary key
