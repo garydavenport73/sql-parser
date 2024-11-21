@@ -63,8 +63,13 @@ function sqlQuery(strSQL) {
     }
     else if (strSQL.indexOf("UPDATE") !== -1) {
         console.log("sql identified as UPDATE table columns to values WHERE");
-        return updateTableSetColumnValuesWhere(strSQL);
+        return parseUpdateTableSetColumnValuesWhere(strSQL);
     }
+    else if (strSQL.indexOf("DELETE") !== -1) {
+        console.log("sql identified as DELETE FROM table_name WHERE condition");
+        return deleteFromTableWhere(strSQL);
+    }
+    // DELETE FROM table_name WHERE condition;
 }
 
 function parseDropTable(strSQL) {
@@ -157,6 +162,8 @@ function parseShowTables(strSQL) {
     return tempTable;
 }
 
+
+
 /*
 console.log(sqlQuery("CREATE TABLE people (first_name STRING, last_name STRING, Age NUMBER);"));
 console.log(sqlQuery("CREATE TABLE pets (name STRING, type STRING, age NUMBER, sex STRING);"));
@@ -187,7 +194,7 @@ console.log(database);
 // INSERT INTO table_name (column1, column2, column3, ...) VALUES (`value1`, `value2`, `value3`, ...); ///////DONE///////
 
 // UPDATE table_name SET column1 = `value1`, column2 = `value2`, ... WHERE condition;   ///////DONE////// but not vigourously tested
-// DELETE FROM table_name WHERE condition;
+// DELETE FROM table_name WHERE condition;                                              ///////DONE//////
 // SELECT * FROM table_name;
 // SELECT column1, column2, ...FROM table_name;
 // SELECT column1, column2, ... FROM table_name WHERE condition;
@@ -434,7 +441,7 @@ function parseAlterTableChange(strSQL) {
 }
 
 
-function updateTableSetColumnValuesWhere(strSQL) {
+function parseUpdateTableSetColumnValuesWhere(strSQL) {
     console.log(strSQL);
     // UPDATE table_name SET column1 = `value1`, column2 = `value2`, ... WHERE condition;
     //let thisRegex = /UPDATE\s+(.*)\s+SET(.*)\s+WHERE\s+(.*)/.exec(strSQL);
@@ -595,6 +602,41 @@ function testWhereConditionForRow(field, testValue, row, comparator, dataType) {
         // return false;
 }
 
+
+function deleteFromTableWhere(strSQL){
+
+        let thisRegex =  /DELETE\s+FROM\s+(.+)\s+WHERE\s+(.+)\s*(=|!=|<>|>=|<=|>|<)\s*(.+)/.exec(strSQL);
+        let tableName=thisRegex[1];
+        let field=thisRegex[2].trim();
+        let comparator=thisRegex[3].trim();
+        let compareValue=thisRegex[4].replace(/`/g,"").trim();
+
+        console.log(thisRegex);
+        console.log("tableName",tableName,"field",field,"comparator",comparator,"compareValue",compareValue);
+    
+        let thisTable=database["tables"][tableName];
+        let thisDataType=thisTable["DATA_TYPES"][field];
+        console.log(thisDataType);
+        console.log(thisTable);
+        console.log("************** DATA ***************");
+        let data=thisTable["DATA"];
+        console.log(data);
+
+        for (let i=data.length-1;i>=0;i--){
+            let row=data[i];
+
+            if (testWhereConditionForRow(field,compareValue,row,comparator,thisDataType)){
+
+                data.splice(i, 1);
+                //delete the row if needed
+                
+            }
+        }
+        //console.log()
+        console.log(JSON.stringify(database));
+        return thisTable;
+}
+
 let strSQL = "INSERT INTO pets (name, type, age) VALUES (`bob`, `sponge`, `16`);";
 sqlQuery(strSQL);
 strSQL = "ALTER TABLE pets ADD sex STRING";
@@ -620,3 +662,5 @@ console.log(database["tables"]["pets"]);
 console.log(sqlQuery("DESCRIBE pets"));
 
 console.log(JSON.stringify(database));
+
+sqlQuery("DELETE FROM pets WHERE name   =   `fuzzy`;");
